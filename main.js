@@ -4,14 +4,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 var firebase = require("firebase");
 
- var config = {
-    apiKey: "AIzaSyAG3GwXfZWfELxXQj9mUOwtylvCzvsutM0",
-    authDomain: "niva-c8834.firebaseapp.com",
-    databaseURL: "https://niva-c8834.firebaseio.com",
-    projectId: "niva-c8834",
-    storageBucket: "niva-c8834.appspot.com",
-    messagingSenderId: "779331353735"
-  };
+var config = {
+  apiKey: "AIzaSyAG3GwXfZWfELxXQj9mUOwtylvCzvsutM0",
+  authDomain: "niva-c8834.firebaseapp.com",
+  databaseURL: "https://niva-c8834.firebaseio.com",
+  projectId: "niva-c8834",
+  storageBucket: "niva-c8834.appspot.com",
+  messagingSenderId: "779331353735"
+};
 
 firebase.initializeApp(config);
 
@@ -26,29 +26,27 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/orderMeal", function(req, res) {
- 
-//  switch (req.body.result.contexts.name) {
-//     //Speech Synthesis Markup Language 
-//     case "music one":
- 
-  var state =
-    req.body.result &&
-    req.body.result.parameters &&
-    req.body.result.parameters.members
-      ? req.body.result.parameters.members
-      : "Seems like some problem. Speak again.";
-  var value = req.body.result.parameters.members;  
-  
-    
-//   var database = firebase.database();
-//     firebase.database().ref('smartHome').set({
-//     light: value
-    
-//   });
+  //  switch (req.body.result.contexts.name) {
+  //     //Speech Synthesis Markup Language
+  //     case "music one":
+
+  // var state =
+  //   req.body.result &&
+  //   req.body.result.parameters &&
+  //   req.body.result.parameters.members
+  //     ? req.body.result.parameters.members
+  //     : "Seems like some problem. Speak again.";
+  // var value = req.body.result.parameters.members;
+
+  //   var database = firebase.database();
+  //     firebase.database().ref('smartHome').set({
+  //     light: value
+
+  //   });
   return res.json({
-//     speech: state + " is the speech",
-   speech: req.body.result.contexts[0].name + " is the speech",
-    displayText: state + " is the state",
+    //     speech: state + " is the speech",
+    speech: " This is the speech",
+    displayText: "This is the state",
     source: "webhook-echo-sample"
   });
 });
@@ -56,7 +54,7 @@ restService.post("/orderMeal", function(req, res) {
 restService.post("/audio", function(req, res) {
   var speech = "";
   switch (req.body.result.parameters.AudioSample.toLowerCase()) {
-    //Speech Synthesis Markup Language 
+    //Speech Synthesis Markup Language
     case "music one":
       speech =
         '<speak><audio src="https://actions.google.com/sounds/v1/cartoon/slide_whistle.ogg">did not get your audio file</audio></speak>';
