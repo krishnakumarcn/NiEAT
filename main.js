@@ -5,13 +5,14 @@ const bodyParser = require("body-parser");
 var firebase = require("firebase");
 
 var config = {
-  apiKey: "AIzaSyAG3GwXfZWfELxXQj9mUOwtylvCzvsutM0",
-  authDomain: "niva-c8834.firebaseapp.com",
-  databaseURL: "https://niva-c8834.firebaseio.com",
-  projectId: "niva-c8834",
-  storageBucket: "niva-c8834.appspot.com",
-  messagingSenderId: "779331353735"
+  apiKey: "AIzaSyAs059e9KN9mqyHucW1xyZ4zuqR4B731rc",
+  authDomain: "nieat-9eb0f.firebaseapp.com",
+  databaseURL: "https://nieat-9eb0f.firebaseio.com",
+  projectId: "nieat-9eb0f",
+  storageBucket: "nieat-9eb0f.appspot.com",
+  messagingSenderId: "793060807751"
 };
+
 
 firebase.initializeApp(config);
 
@@ -45,7 +46,7 @@ restService.post("/orderMeal", function(req, res) {
   //   });
 
   //
-  
+
   return res.json({
     //     speech: state + " is the speech",
     speech: " This is the speech",
