@@ -25,7 +25,7 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-restService.post("/roomBooking", function(req, res) {
+restService.post("/orderMeal", function(req, res) {
  
 //  switch (req.body.result.contexts.name) {
 //     //Speech Synthesis Markup Language 
