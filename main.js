@@ -69,14 +69,7 @@ restService.post("/orderMeal", async function(req, res) {
 
       datetime = new Date().toString();
 
-      // returnJSON = writeToDB(
-      //   datetime,
-      //   restaurant,
-      //   fooditem,
-      //   quantity,
-      //   status,
-      //   userid
-      // );
+      /// Get userid from 
 
       await writeToDB(
         datetime,
@@ -171,7 +164,7 @@ async function writeToDB(
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: "Respons OK"
+                    textToSpeech: "Hang in there! Your " + fooditem + " is on the way. "
                   }
                 }
               ]
