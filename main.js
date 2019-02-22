@@ -78,20 +78,15 @@ restService.post("/orderMeal", function(req, res) {
       //   userid
       // );
 
-      writeToDB(
-          datetime,
-          restaurant,
-          fooditem,
-          quantity,
-          status,
-          userid
-        )
+      writeToDB(datetime, restaurant, fooditem, quantity, status, userid)
         .then(res => {
           returnJSON = res;
+          return res.json(returnJSON);
         })
         .catch(res => {
           returnJSON = res;
-        })
+          return res.json(returnJSON);
+        });
 
       // returnJSON = {
       //   payload: {
@@ -144,7 +139,7 @@ restService.post("/orderMeal", function(req, res) {
 });
 
 function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     var db = firebase.firestore();
 
     var retJSON = "";
@@ -176,8 +171,8 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
             }
           }
         };
-  
-         resolve(retJSON);
+
+        resolve(retJSON);
       })
       .catch(function(error) {
         console.log("error is: " + error);
@@ -197,9 +192,9 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
             }
           }
         };
-         reject(retJSON);
+        reject(retJSON);
       });
-  })
+  });
 }
 
 // restService.post("/audio", function(req, res) {
