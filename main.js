@@ -238,7 +238,7 @@ async function writeToDB(
           }
         }
       };
-      res.json(x);
+      res.json(respWithFulfil);
     })
     .catch(function(error) {
       console.log("error is: " + error);
