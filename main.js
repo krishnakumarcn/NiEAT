@@ -50,6 +50,23 @@ restService.post("/orderMeal", function(req, res) {
       break;
 
     default:
+    returnJSON = {
+      payload: {
+        google: {
+          expectUserResponse: true,
+          richResponse: {
+            items: [
+              {
+                simpleResponse: {
+                  textToSpeech:
+                    "Unknown intent!" 
+                }
+              }
+            ]
+          }
+        }
+      }
+    };
       break;
   }
 
