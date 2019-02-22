@@ -218,14 +218,14 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
   var db = firebase.firestore();
 
   db.collection("orders")
-    .doc(datetime)
+    .doc("datetime")
     .set({
-      datetime: datetime,
-      fooditem: fooditem,
-      quantity: quantity,
-      restaurant: restaurant,
-      status: status,
-      userid: userid
+      datetime: "datetime",
+      fooditem: "fooditem",
+      quantity: "quantity",
+      restaurant: "restaurant",
+      status: "status",
+      userid: "userid"
     })
     .then(function(resp) {
       console.log("resp is" + resp);
@@ -239,7 +239,7 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
                   simpleResponse: {
                     textToSpeech:
                       "Congrats! " +
-                      req.body.queryResult.parameters.food_item +
+                      fooditem +
                       " is on the way"
                   }
                 }
@@ -261,7 +261,7 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: "Some eroor occured"
+                    textToSpeech: "Sorry. Something went wrong!"
                   }
                 }
               ]
