@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 var firebase = require("firebase");
 const axios = require('axios')
+const {WebhookClient} = require('dialogflow-fulfillment');
 
 var config = {
   apiKey: "AIzaSyAs059e9KN9mqyHucW1xyZ4zuqR4B731rc",
@@ -17,6 +18,7 @@ var config = {
 firebase.initializeApp(config);
 
 const restService = express();
+const agent = new WebhookClient({request: request,response: response});
 
 restService.use(
   bodyParser.urlencoded({
@@ -238,6 +240,8 @@ async function writeToDB(
           }
         }
       };
+
+      agent.add('Great. From Agent');
       res.json(respWithFulfil);
     })
     .catch(function(error) {
