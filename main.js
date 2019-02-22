@@ -26,7 +26,33 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/orderMeal", function(req, res) {
-   // switch (req.body.queryResult.parameters.food_item) {
+  var returnJSON = "";
+  switch (req.body.queryResult.intent.displayName) {
+    case "nieat.order.food":
+      returnJSON = {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech:
+                      "Congrats! " + req.body.queryResult.parameters.food_item +
+                      " is on the way"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      };
+      break;
+
+    default:
+      break;
+  }
+
   //     //Speech Synthesis Markup Language
   //     case "music one":
 
@@ -61,23 +87,24 @@ restService.post("/orderMeal", function(req, res) {
   //   }
   // };
 
-  var helperResponse = {
-    payload: {
-      google: {
-        expectUserResponse: true,
-        richResponse: {
-          items: [
-            {
-              simpleResponse: {
-                textToSpeech: req.body.queryResult.parameters.food_item + " is on the way"
-              }
-            }
-          ]
-        }
-      }
-    }
-  };
-  return res.json(helperResponse);
+  // var helperResponse = {
+  //   payload: {
+  //     google: {
+  //       expectUserResponse: true,
+  //       richResponse: {
+  //         items: [
+  //           {
+  //             simpleResponse: {
+  //               textToSpeech:
+  //                 req.body.queryResult.parameters.food_item + " is on the way"
+  //             }
+  //           }
+  //         ]
+  //       }
+  //     }
+  //   }
+  // };
+  return res.json(returnJSON);
 
   ///////////////////////////////////////////////////////////////
   var db = firebase.firestore();
