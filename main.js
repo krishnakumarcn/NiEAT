@@ -45,7 +45,14 @@ restService.post("/orderMeal", function(req, res) {
   //   });
 
   //
-  var helperIntent = {
+  var helperResponse = {
+    fulfillmentText: "displayed&spoken response",
+    fulfillmentMessages: [
+      {
+        text: ["This is the sample response"]
+      }
+    ],
+    source: "example.com",
     payload: {
       google: {
         expectUserResponse: true,
@@ -53,91 +60,81 @@ restService.post("/orderMeal", function(req, res) {
           items: [
             {
               simpleResponse: {
-                textToSpeech: "Choose a item"
+                textToSpeech: "this is a simple response"
               }
             }
           ]
-        },
-        systemIntent: {
-          intent: "actions.intent.OPTION",
-          data: {
-            "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-            listSelect: {
-              title: "Hello",
-              items: [
-                {
-                  optionInfo: {
-                    key: "first title key"
-                  },
-                  description: "first description",
-                  image: {
-                    url:
-                      "https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
-                    accessibilityText: "first alt"
-                  },
-                  title: "first title"
-                },
-                {
-                  optionInfo: {
-                    key: "second"
-                  },
-                  description: "second description",
-                  image: {
-                    url:
-                      "https://lh3.googleusercontent.com/Nu3a6F80WfixUqf_ec_vgXy_c0-0r4VLJRXjVFF_X_CIilEu8B9fT35qyTEj_PEsKw",
-                    accessibilityText: "second alt"
-                  },
-                  title: "second title"
-                }
-              ]
-            }
-          }
         }
+      },
+      facebook: {
+        text: "Hello, Facebook!"
+      },
+      slack: {
+        text: "This is a text response for Slack."
+      }
+    },
+    outputContexts: [
+      {
+        name:
+          "projects/${PROJECT_ID}/agent/sessions/${SESSION_ID}/contexts/context name",
+        lifespanCount: 5,
+        parameters: {
+          param: "param value"
+        }
+      }
+    ],
+    followupEventInput: {
+      name: "event name",
+      languageCode: "en-US",
+      parameters: {
+        param: "param value"
       }
     }
   };
 
-  //return res.json(helperIntent);
+  return res.json(helperResponse);
 
+  ///////////////////////////////////////////////////////////////
   var db = firebase.firestore();
 
-  db.collection("orders").doc("2019-02-22T14:00:00+05:30").set({
-    datetime: "TESTDT",
+  db.collection("orders")
+    .doc("2019-02-22T14:00:00+05:30")
+    .set({
+      datetime: "TESTDT",
       dish: "TESTBIRIYANI",
       quantity: 2,
       status: "ordered",
       userid: "ndh00300"
-  }).then(function(resp){
-    console.log("resp is" + resp);
-    return res.json({
-      //     speech: state + " is the speech",
-      speech: " This is the speech",
-      displayText: "This is the state",
-      source: "webhook-echo-sample"
+    })
+    .then(function(resp) {
+      console.log("resp is" + resp);
+      return res.json({
+        //     speech: state + " is the speech",
+        speech: " This is the speech",
+        displayText: "This is the state",
+        source: "webhook-echo-sample"
+      });
+      // agent.add('success');
+      // agent.add(`Nieat, This is Welcome to my agent!`);
+    })
+    .catch(function(error) {
+      console.log("error is: " + error);
+      return res.json({
+        //     speech: state + " is the speech",
+        speech: " This is the speech",
+        displayText: "This is the state",
+        source: "webhook-echo-sample"
+      });
+      // agent.add('caught error');
+      // agent.add(`Nieat, Poda pattee... eroor`);
     });
-   // agent.add('success');
-   // agent.add(`Nieat, This is Welcome to my agent!`);
-  }).catch(function(error){
-    console.log("error is: " + error );
-    return res.json({
-      //     speech: state + " is the speech",
-      speech: " This is the speech",
-      displayText: "This is the state",
-      source: "webhook-echo-sample"
-    });
-   // agent.add('caught error');
-   // agent.add(`Nieat, Poda pattee... eroor`);
+  ///////////////////////////////////////////
+  return res.json({
+    //     speech: state + " is the speech",
+    speech: " This is the speech",
+    displayText: "This is the state",
+    source: "webhook-echo-sample"
   });
-
-     return res.json({
-      //     speech: state + " is the speech",
-      speech: " This is the speech",
-      displayText: "This is the state",
-      source: "webhook-echo-sample"
-    });
-  
-
-  
 });
 
 restService.post("/audio", function(req, res) {
