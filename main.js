@@ -99,35 +99,42 @@ restService.post("/orderMeal", function(req, res) {
 
   //return res.json(helperIntent);
 
-  var db = firebase.firestore();
+  // var db = firebase.firestore();
 
-  db.collection("orders").doc("2019-02-22T14:00:00+05:30").set({
-    datetime: "TESTDT",
-      dish: "TESTBIRIYANI",
-      quantity: 2,
-      status: "ordered",
-      userid: "ndh00300"
-  }).then(function(resp){
-    console.log("resp is" + resp);
-    return res.json({
+  // db.collection("orders").doc("2019-02-22T14:00:00+05:30").set({
+  //   datetime: "TESTDT",
+  //     dish: "TESTBIRIYANI",
+  //     quantity: 2,
+  //     status: "ordered",
+  //     userid: "ndh00300"
+  // }).then(function(resp){
+  //   console.log("resp is" + resp);
+  //   return res.json({
+  //     //     speech: state + " is the speech",
+  //     speech: " This is the speech",
+  //     displayText: "This is the state",
+  //     source: "webhook-echo-sample"
+  //   });
+  //  // agent.add('success');
+  //  // agent.add(`Nieat, This is Welcome to my agent!`);
+  // }).catch(function(error){
+  //   console.log("error is: " + error );
+  //   return res.json({
+  //     //     speech: state + " is the speech",
+  //     speech: " This is the speech",
+  //     displayText: "This is the state",
+  //     source: "webhook-echo-sample"
+  //   });
+  //  // agent.add('caught error');
+  //  // agent.add(`Nieat, Poda pattee... eroor`);
+  // });
+
+     return res.json({
       //     speech: state + " is the speech",
       speech: " This is the speech",
       displayText: "This is the state",
       source: "webhook-echo-sample"
     });
-   // agent.add('success');
-   // agent.add(`Nieat, This is Welcome to my agent!`);
-  }).catch(function(error){
-    console.log("error is: " + error );
-    return res.json({
-      //     speech: state + " is the speech",
-      speech: " This is the speech",
-      displayText: "This is the state",
-      source: "webhook-echo-sample"
-    });
-   // agent.add('caught error');
-   // agent.add(`Nieat, Poda pattee... eroor`);
-  });
   
 
   
