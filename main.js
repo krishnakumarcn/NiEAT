@@ -38,7 +38,8 @@ restService.post("/orderMeal", function(req, res) {
                 {
                   simpleResponse: {
                     textToSpeech:
-                      "Congrats! " + req.body.queryResult.parameters.food_item +
+                      "Congrats! " +
+                      req.body.queryResult.parameters.food_item +
                       " is on the way"
                   }
                 }
@@ -50,23 +51,22 @@ restService.post("/orderMeal", function(req, res) {
       break;
 
     default:
-    returnJSON = {
-      payload: {
-        google: {
-          expectUserResponse: true,
-          richResponse: {
-            items: [
-              {
-                simpleResponse: {
-                  textToSpeech:
-                    "Unknown intent!" 
+      returnJSON = {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech: "Unknown intent!"
+                  }
                 }
-              }
-            ]
+              ]
+            }
           }
         }
-      }
-    };
+      };
       break;
   }
 
