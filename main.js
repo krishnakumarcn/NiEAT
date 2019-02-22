@@ -46,51 +46,22 @@ restService.post("/orderMeal", function(req, res) {
 
   //
   var helperResponse = {
-    fulfillmentText: "displayed&spoken response",
-    fulfillmentMessages: [
-      {
-        text: ["This is the sample response"]
-      }
-    ],
-    source: "example.com",
-    payload: {
-      google: {
-        expectUserResponse: true,
-        richResponse: {
-          items: [
+    "payload": {
+      "google": {
+        "expectUserResponse": true,
+        "richResponse": {
+          "items": [
             {
-              simpleResponse: {
-                textToSpeech: "this is a simple response"
+              "simpleResponse": {
+                "textToSpeech": "this is a simple response"
               }
             }
           ]
         }
-      },
-      facebook: {
-        text: "Hello, Facebook!"
-      },
-      slack: {
-        text: "This is a text response for Slack."
-      }
-    },
-    outputContexts: [
-      {
-        name:
-          "projects/${PROJECT_ID}/agent/sessions/${SESSION_ID}/contexts/context name",
-        lifespanCount: 5,
-        parameters: {
-          param: "param value"
-        }
-      }
-    ],
-    followupEventInput: {
-      name: "event name",
-      languageCode: "en-US",
-      parameters: {
-        param: "param value"
       }
     }
-  };
+  }
+  ;
 
   return res.json(helperResponse);
 
