@@ -2,7 +2,6 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const https = require("https");
 var firebase = require("firebase");
 
 var config = {
