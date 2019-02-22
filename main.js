@@ -132,6 +132,7 @@ restService.post("/orderMeal", async function(req, res) {
           }
         }
       };
+      res.json(returnJSON);
       break;
   }
 
