@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var firebase = require("firebase");
-var moment = require("moment");
+
 var config = {
   apiKey: "AIzaSyAs059e9KN9mqyHucW1xyZ4zuqR4B731rc",
   authDomain: "nieat-9eb0f.firebaseapp.com",
@@ -212,13 +212,6 @@ async function writeToDB(
 }
 
 function getDateTime() {
-  var utc = new Date().valueOf();
-  var m = moment
-    .unix(utc)
-    .tz("Asia/Kolkata")
-    .format("YYYY-MM-DD HH:mm:ss");
-
-  return m;
 
   var date = new Date();
 
