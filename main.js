@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var firebase = require("firebase");
-
+var moment = require("moment");
 var config = {
   apiKey: "AIzaSyAs059e9KN9mqyHucW1xyZ4zuqR4B731rc",
   authDomain: "nieat-9eb0f.firebaseapp.com",
@@ -72,7 +72,7 @@ restService.post("/orderMeal", async function(req, res) {
       if (req.body.queryResult.parameters["number-integer"])
         quantity = req.body.queryResult.parameters["number-integer"];
 
-      datetime = getDateTime();  //new Data().toString()
+      datetime = getDateTime(); //new Data().toString()
 
       await writeToDB(
         datetime,
@@ -212,16 +212,23 @@ async function writeToDB(
 }
 
 function getDateTime() {
+  var utc = new Date().valueOf();
+  var m = moment
+    .unix(utc)
+    .tz("Asia/Kolkata")
+    .format("YYYY-MM-DD HH:mm:ss");
+
+  return m;
 
   var date = new Date();
 
   var hour = date.getHours();
   hour = (hour < 10 ? "0" : "") + hour;
 
-  var min  = date.getMinutes();
+  var min = date.getMinutes();
   min = (min < 10 ? "0" : "") + min;
 
-  var sec  = date.getSeconds();
+  var sec = date.getSeconds();
   sec = (sec < 10 ? "0" : "") + sec;
 
   var year = date.getFullYear();
@@ -229,11 +236,10 @@ function getDateTime() {
   var month = date.getMonth() + 1;
   month = (month < 10 ? "0" : "") + month;
 
-  var day  = date.getDate();
+  var day = date.getDate();
   day = (day < 10 ? "0" : "") + day;
 
   return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-
 }
 
 // restService.post("/audio", function(req, res) {
