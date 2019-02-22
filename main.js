@@ -72,7 +72,7 @@ restService.post("/orderMeal", async function(req, res) {
       if (req.body.queryResult.parameters["number-integer"])
         quantity = req.body.queryResult.parameters["number-integer"];
 
-      datetime = new Date().toString();
+      datetime = new Date().valueOf().toString();
 
       await writeToDB(
         datetime,
