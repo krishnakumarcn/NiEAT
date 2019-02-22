@@ -242,7 +242,7 @@ async function writeToDB(
       };
 
 //      agent.add('Great. From Agent');
-      res.json(respWithFulfil);
+      res.json(x);
     })
     .catch(function(error) {
       console.log("error is: " + error);
