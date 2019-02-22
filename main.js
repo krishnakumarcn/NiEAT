@@ -134,6 +134,8 @@ restService.post("/orderMeal", async function(req, res) {
       break;
   }
 
+  
+
   return res.json(returnJSON);
 });
 
@@ -160,7 +162,7 @@ async function writeToDB(
     })
     .then(function(resp) {
       console.log("resp is" + resp);
-      retJSON = {
+      return {
         payload: {
           google: {
             expectUserResponse: true,
@@ -168,7 +170,7 @@ async function writeToDB(
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: "Congrats! " + fooditem + " is on the way"
+                    textToSpeech: "Respons OK"
                   }
                 }
               ]
@@ -176,12 +178,10 @@ async function writeToDB(
           }
         }
       };
-
-      return retJSON;
     })
     .catch(function(error) {
       console.log("error is: " + error);
-      retJSON = {
+      return {
         payload: {
           google: {
             expectUserResponse: true,
@@ -197,7 +197,7 @@ async function writeToDB(
           }
         }
       };
-      return retJSON;
+      
     });
 }
 
