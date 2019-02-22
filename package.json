@@ -7,8 +7,9 @@
     "start": "node main.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.15.0",
-    "express": "^4.13.4", 
+    "express": "^4.13.4",
     "firebase": "latest",
     "firebase-admin": "^5.0.1"
   }

@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var firebase = require("firebase");
+const axios = require('axios')
 
 var config = {
   apiKey: "AIzaSyAs059e9KN9mqyHucW1xyZ4zuqR4B731rc",
@@ -165,6 +166,57 @@ async function writeToDB(
     })
     .then(function(resp) {
       console.log("resp is" + resp);
+
+      let respWithFulfil = {
+        "fulfillmentText": " This is the displayed and spoken resp",
+        "fulfillmentMessages": [
+          {
+            "text": [
+              "text response"
+            ],
+          }
+        ],
+        "source": "example.com",
+        "payload": {
+          "google": {
+            "expectUserResponse": true,
+            "richResponse": {
+              "items": [
+                {
+                  "simpleResponse": {
+                    "textToSpeech": "this is a simple response"
+                  }
+                }
+              ]
+            }
+          },
+          "facebook": {
+            "text": "Hello, Facebook!"
+          },
+          "slack": {
+            "text": "This is a text response for Slack."
+          }
+        },
+        "outputContexts": [
+          {
+            "name": "projects/${PROJECT_ID}/agent/sessions/${SESSION_ID}/contexts/context name",
+            "lifespanCount": 5,
+            "parameters": {
+              "param": "param value"
+            }
+          }
+        ],
+        "followupEventInput": {
+          "name": "event name",
+          "languageCode": "en-US",
+          "parameters": {
+            "param": "param value"
+          }
+        }
+      };
+
+
+
       let x = {
         payload: {
           google: {
