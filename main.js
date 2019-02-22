@@ -97,7 +97,26 @@ restService.post("/orderMeal", function(req, res) {
     }
   };
 
-  return res.json(helperIntent);
+  //return res.json(helperIntent);
+
+  var db = firebase.firestore();
+
+  db.collection("orders").doc("2019-02-22T14:00:00+05:30").set({
+    datetime: "TESTDT",
+      dish: "TESTBIRIYANI",
+      quantity: 2,
+      status: "ordered",
+      userid: "ndh00300"
+  }).then(function(resp){
+    console.log("resp is" + resp);
+    agent.add('success');
+    agent.add(`Nieat, This is Welcome to my agent!`);
+  }).catch(function(error){
+    console.log("error is: " + error );
+    agent.add('caught error');
+    agent.add(`Nieat, Poda pattee... eroor`);
+  });
+  
 
   return res.json({
     //     speech: state + " is the speech",
