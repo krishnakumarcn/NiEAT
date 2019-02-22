@@ -26,7 +26,7 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/orderMeal", function(req, res) {
-  //  switch (req.body.result.contexts.name) {
+   // switch (req.body.queryResult.parameters.food_item) {
   //     //Speech Synthesis Markup Language
   //     case "music one":
 
@@ -46,20 +46,20 @@ restService.post("/orderMeal", function(req, res) {
 
   //
 
-  var cardResponse = {
-    platform: "ACTIONS_ON_GOOGLE",
-    card: {
-      title: "card title",
-      subtitle: "card subtitle",
-      imageUri: "https://example.com/image.jpg",
-      buttons: [
-        {
-          text: "Button Text",
-          postback: "https://example.com"
-        }
-      ]
-    }
-  };
+  // var cardResponse = {
+  //   platform: "ACTIONS_ON_GOOGLE",
+  //   card: {
+  //     title: "card title",
+  //     subtitle: "card subtitle",
+  //     imageUri: "https://example.com/image.jpg",
+  //     buttons: [
+  //       {
+  //         text: "Button Text",
+  //         postback: "https://example.com"
+  //       }
+  //     ]
+  //   }
+  // };
 
   var helperResponse = {
     payload: {
@@ -69,7 +69,7 @@ restService.post("/orderMeal", function(req, res) {
           items: [
             {
               simpleResponse: {
-                textToSpeech: "this is a simple response"
+                textToSpeech: req.body.queryResult.parameters.food_item + " is on the way"
               }
             }
           ]
@@ -77,7 +77,7 @@ restService.post("/orderMeal", function(req, res) {
       }
     }
   };
-  return res.json(cardResponse);
+  return res.json(helperResponse);
 
   ///////////////////////////////////////////////////////////////
   var db = firebase.firestore();
