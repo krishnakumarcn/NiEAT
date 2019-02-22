@@ -70,13 +70,13 @@ restService.post("/orderMeal", async function(req, res) {
 
       datetime = new Date().toString();
 
-      var email = "nil"
-      https.get(
-        "https://oauth2.googleapis.com/tokeninfo?id_token=" +
-          "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdkNjgwZDhjNzBkNDRlOTQ3MTMzY2JkNDk5ZWJjMWE2MWMzZDVhYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE1NTA4Mjg1NzgsImF1ZCI6Ijc5MzA2MDgwNzc1MS1hZWVpZGJiMHU4bHQ5b2x2MmU3a2g3OHFsbDNjZzlwZC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMTg1Njk2MDA1ODc1MDkyMDYwMiIsImVtYWlsIjoia3Jpc2huYWNuc2twQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiS3Jpc2huYWt1bWFyIENOIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tUnBZb3B3d3dmVEkvQUFBQUFBQUFBQUkvQUFBQUFBQUFVTXcvaGZyMFRXUVM4MVUvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IktyaXNobmFrdW1hciIsImZhbWlseV9uYW1lIjoiQ04iLCJpYXQiOjE1NTA4Mjg4NzgsImV4cCI6MTU1MDgzMjQ3OCwianRpIjoiZGNiZTEyNzJkODVlZjZlNDFkMDkxMDRjNDA0M2MxNmNjN2YwNzJlZSJ9.ldxJK_Hd3cmybMSkzzh65V-rkPpoaNIZReasMyrbCRJ-c0ZDxjZ6pEXOylQ7iTnWkZRxZN3iYPM0mUB32YJEHxUoCVxDMDCCQRotIRqx07O-WZdNPheL4fLs2VD8iEidfCnwp0-VJYUbIfCAqALPX8EpftXSnTu-ScmMJ3tucNUZciZZsxtJ94sbM0DgNDbAwdTuMmLdktl4mwhKAZRBeuO4fS9oTRfMIE8e5fOLB1LF7g85HJ4ixQMjbpOlj7ePv2JZpFucYEzqqskOqQRH92X1k4MnPUX7ribLsUPn0YiCEynJJGXnbQ197JGSIuFbpE1MyRAQH5QuzU7RWQTHEQ"
-      , (resp) => {
-        email = resp.body.email ;
-      });
+      // var email = "nil"
+      // https.get(
+      //   "https://oauth2.googleapis.com/tokeninfo?id_token=" +
+      //     "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdkNjgwZDhjNzBkNDRlOTQ3MTMzY2JkNDk5ZWJjMWE2MWMzZDVhYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE1NTA4Mjg1NzgsImF1ZCI6Ijc5MzA2MDgwNzc1MS1hZWVpZGJiMHU4bHQ5b2x2MmU3a2g3OHFsbDNjZzlwZC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMTg1Njk2MDA1ODc1MDkyMDYwMiIsImVtYWlsIjoia3Jpc2huYWNuc2twQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiS3Jpc2huYWt1bWFyIENOIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tUnBZb3B3d3dmVEkvQUFBQUFBQUFBQUkvQUFBQUFBQUFVTXcvaGZyMFRXUVM4MVUvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IktyaXNobmFrdW1hciIsImZhbWlseV9uYW1lIjoiQ04iLCJpYXQiOjE1NTA4Mjg4NzgsImV4cCI6MTU1MDgzMjQ3OCwianRpIjoiZGNiZTEyNzJkODVlZjZlNDFkMDkxMDRjNDA0M2MxNmNjN2YwNzJlZSJ9.ldxJK_Hd3cmybMSkzzh65V-rkPpoaNIZReasMyrbCRJ-c0ZDxjZ6pEXOylQ7iTnWkZRxZN3iYPM0mUB32YJEHxUoCVxDMDCCQRotIRqx07O-WZdNPheL4fLs2VD8iEidfCnwp0-VJYUbIfCAqALPX8EpftXSnTu-ScmMJ3tucNUZciZZsxtJ94sbM0DgNDbAwdTuMmLdktl4mwhKAZRBeuO4fS9oTRfMIE8e5fOLB1LF7g85HJ4ixQMjbpOlj7ePv2JZpFucYEzqqskOqQRH92X1k4MnPUX7ribLsUPn0YiCEynJJGXnbQ197JGSIuFbpE1MyRAQH5QuzU7RWQTHEQ"
+      // , (resp) => {
+      //   email = resp.body.email ;
+      // });
 
       /// Get userid from
 
@@ -176,7 +176,7 @@ async function writeToDB(
                 {
                   simpleResponse: {
                     textToSpeech:
-                      "Hang in there! Your " + email + " and " +
+                      "Hang in there! Your "  +
                       fooditem +
                       "from " +
                       restaurant +
