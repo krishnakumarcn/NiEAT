@@ -34,7 +34,8 @@ restService.post("/orderMeal", async function(req, res) {
           items: [
             {
               simpleResponse: {
-                textToSpeech: "Hmmm... I feel a headache.. please try again after some time."
+                textToSpeech:
+                  "Hmmm... I feel a headache.. please try again after some time."
               }
             }
           ]
@@ -48,6 +49,12 @@ restService.post("/orderMeal", async function(req, res) {
   }
 
   switch (intentName) {
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
+    ////////////////   ORDER FOOD ///////////////////////
+    /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
+
     case "nieat.order.food":
       var fooditem = "";
       var restaurant = "";
@@ -55,8 +62,6 @@ restService.post("/orderMeal", async function(req, res) {
       var quantity = 0;
       var status = "pending";
       var userid = "uid_dummy";
-
-      //parse data
 
       if (req.body.queryResult.parameters.restaurents) {
         restaurant = req.body.queryResult.parameters.restaurents;
@@ -69,16 +74,6 @@ restService.post("/orderMeal", async function(req, res) {
 
       datetime = new Date().toString();
 
-      // var email = "nil"
-      // https.get(
-      //   "https://oauth2.googleapis.com/tokeninfo?id_token=" +
-      //     "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdkNjgwZDhjNzBkNDRlOTQ3MTMzY2JkNDk5ZWJjMWE2MWMzZDVhYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE1NTA4Mjg1NzgsImF1ZCI6Ijc5MzA2MDgwNzc1MS1hZWVpZGJiMHU4bHQ5b2x2MmU3a2g3OHFsbDNjZzlwZC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMTg1Njk2MDA1ODc1MDkyMDYwMiIsImVtYWlsIjoia3Jpc2huYWNuc2twQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiS3Jpc2huYWt1bWFyIENOIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tUnBZb3B3d3dmVEkvQUFBQUFBQUFBQUkvQUFBQUFBQUFVTXcvaGZyMFRXUVM4MVUvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IktyaXNobmFrdW1hciIsImZhbWlseV9uYW1lIjoiQ04iLCJpYXQiOjE1NTA4Mjg4NzgsImV4cCI6MTU1MDgzMjQ3OCwianRpIjoiZGNiZTEyNzJkODVlZjZlNDFkMDkxMDRjNDA0M2MxNmNjN2YwNzJlZSJ9.ldxJK_Hd3cmybMSkzzh65V-rkPpoaNIZReasMyrbCRJ-c0ZDxjZ6pEXOylQ7iTnWkZRxZN3iYPM0mUB32YJEHxUoCVxDMDCCQRotIRqx07O-WZdNPheL4fLs2VD8iEidfCnwp0-VJYUbIfCAqALPX8EpftXSnTu-ScmMJ3tucNUZciZZsxtJ94sbM0DgNDbAwdTuMmLdktl4mwhKAZRBeuO4fS9oTRfMIE8e5fOLB1LF7g85HJ4ixQMjbpOlj7ePv2JZpFucYEzqqskOqQRH92X1k4MnPUX7ribLsUPn0YiCEynJJGXnbQ197JGSIuFbpE1MyRAQH5QuzU7RWQTHEQ"
-      // , (resp) => {
-      //   email = resp.body.email ;
-      // });
-
-      /// Get userid from
-
       await writeToDB(
         datetime,
         restaurant,
@@ -89,32 +84,40 @@ restService.post("/orderMeal", async function(req, res) {
         res
       );
 
-      // returnJSON = {
-      //   payload: {
-      //     google: {
-      //       expectUserResponse: true,
-      //       richResponse: {
-      //         items: [
-      //           {
-      //             simpleResponse: {
-      //               textToSpeech:
-      //                 "Rest: " +
-      //                 restaurant +
-      //                 " Food: " +
-      //                 fooditem +
-      //                 "Qty: " +
-      //                 quantity +
-      //                 "DateTime:" +
-      //                 datetime
-      //             }
-      //           }
-      //         ]
-      //       }
-      //     }
-      //   }
-      // };
+      break;
+
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
+    ////////////////   SEARCH ORDER //////////////////////
+    /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
+
+    case "nieat.search.order":
+      returnJSON = {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech: "Search order Intent obtained"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      };
+      res.json(returnJSON);
 
       break;
+
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
+    ////////////////    OTHERS     ///////////////////////
+    /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
 
     default:
       returnJSON = {
@@ -136,8 +139,6 @@ restService.post("/orderMeal", async function(req, res) {
       res.json(returnJSON);
       break;
   }
-
-  //return res.json(returnJSON);
 });
 
 async function writeToDB(
@@ -175,7 +176,7 @@ async function writeToDB(
                     textToSpeech:
                       "Hang in there! Your " +
                       fooditem +
-                      "from " +
+                      " from " +
                       restaurant +
                       " is on the way. "
                   }
@@ -197,7 +198,8 @@ async function writeToDB(
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: "Hmmm... I feel a headache.. please try again after some time."
+                    textToSpeech:
+                      "Hmmm... I feel a headache.. please try again after some time."
                   }
                 }
               ]
