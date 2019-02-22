@@ -69,7 +69,14 @@ restService.post("/orderMeal", function(req, res) {
 
       datetime = new Date().toString();
 
-      returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
+      returnJSON = writeToDB(
+        datetime,
+        restaurant,
+        fooditem,
+        quantity,
+        status,
+        userid
+      );
 
       // returnJSON = {
       //   payload: {
@@ -170,14 +177,13 @@ restService.post("/orderMeal", function(req, res) {
   //   }
   // };
 
-
   return res.json(returnJSON);
-
 });
 
 function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
   var db = firebase.firestore();
 
+  var retJSON = "";
   db.collection("orders")
     .doc(datetime)
     .set({
@@ -190,7 +196,7 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
     })
     .then(function(resp) {
       console.log("resp is" + resp);
-      return {
+      retJSON = {
         payload: {
           google: {
             expectUserResponse: true,
@@ -198,10 +204,7 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech:
-                      "Congrats! " +
-                      fooditem +
-                      " is on the way"
+                    textToSpeech: "Congrats! " + fooditem + " is on the way"
                   }
                 }
               ]
@@ -209,12 +212,12 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
           }
         }
       };
-      // agent.add('success');
-      // agent.add(`Nieat, This is Welcome to my agent!`);
+
+      return retJSON;
     })
     .catch(function(error) {
       console.log("error is: " + error);
-      return {
+      retJSON = {
         payload: {
           google: {
             expectUserResponse: true,
@@ -230,6 +233,7 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
           }
         }
       };
+      return retJSON;
     });
 }
 
