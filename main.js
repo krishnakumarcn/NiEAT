@@ -34,7 +34,7 @@ restService.post("/orderMeal", async function(req, res) {
           items: [
             {
               simpleResponse: {
-                textToSpeech: "Initial JSON"
+                textToSpeech: "Hmmm... I feel a headache.. please try again after some time."
               }
             }
           ]
@@ -199,7 +199,7 @@ async function writeToDB(
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: "Sorry. Something went wrong!"
+                    textToSpeech: "Hmmm... I feel a headache.. please try again after some time."
                   }
                 }
               ]
