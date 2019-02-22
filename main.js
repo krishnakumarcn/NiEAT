@@ -86,7 +86,6 @@ restService.post("/orderMeal", async function(req, res) {
         quantity,
         status,
         userid,
-        email,
         res
       );
 
@@ -148,7 +147,6 @@ async function writeToDB(
   quantity,
   status,
   userid,
-  email,
   res
 ) {
   var db = firebase.firestore();
@@ -162,7 +160,7 @@ async function writeToDB(
       quantity: quantity,
       restaurant: restaurant,
       status: status,
-      userid: email
+      userid: userid
     })
     .then(function(resp) {
       console.log("resp is" + resp);
@@ -175,7 +173,7 @@ async function writeToDB(
                 {
                   simpleResponse: {
                     textToSpeech:
-                      "Hang in there! Your "  +
+                      "Hang in there! Your " +
                       fooditem +
                       "from " +
                       restaurant +
