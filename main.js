@@ -25,7 +25,7 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-restService.post("/orderMeal", function(req, res) {
+restService.post("/orderMeal", async function(req, res) {
   var returnJSON = {
     payload: {
       google: {
@@ -78,15 +78,14 @@ restService.post("/orderMeal", function(req, res) {
       //   userid
       // );
 
-      writeToDB(datetime, restaurant, fooditem, quantity, status, userid)
-        .then(res => {
-          returnJSON = res;
-          return res.json(returnJSON);
-        })
-        .catch(res => {
-          returnJSON = res;
-          return res.json(returnJSON);
-        });
+      returnJSON = await writeToDB(
+        datetime,
+        restaurant,
+        fooditem,
+        quantity,
+        status,
+        userid
+      );
 
       // returnJSON = {
       //   payload: {
@@ -138,63 +137,68 @@ restService.post("/orderMeal", function(req, res) {
   return res.json(returnJSON);
 });
 
-function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
-  return new Promise((resolve, reject) => {
-    var db = firebase.firestore();
+async function writeToDB(
+  datetime,
+  restaurant,
+  fooditem,
+  quantity,
+  status,
+  userid
+) {
+  var db = firebase.firestore();
 
-    var retJSON = "";
-    db.collection("orders")
-      .doc(datetime)
-      .set({
-        datetime: datetime,
-        fooditem: fooditem,
-        quantity: quantity,
-        restaurant: restaurant,
-        status: status,
-        userid: userid
-      })
-      .then(function(resp) {
-        console.log("resp is" + resp);
-        retJSON = {
-          payload: {
-            google: {
-              expectUserResponse: true,
-              richResponse: {
-                items: [
-                  {
-                    simpleResponse: {
-                      textToSpeech: "Congrats! " + fooditem + " is on the way"
-                    }
+  var retJSON = "";
+  db.collection("orders")
+    .doc(datetime)
+    .set({
+      datetime: datetime,
+      fooditem: fooditem,
+      quantity: quantity,
+      restaurant: restaurant,
+      status: status,
+      userid: userid
+    })
+    .then(function(resp) {
+      console.log("resp is" + resp);
+      retJSON = {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech: "Congrats! " + fooditem + " is on the way"
                   }
-                ]
-              }
+                }
+              ]
             }
           }
-        };
+        }
+      };
 
-        resolve(retJSON);
-      })
-      .catch(function(error) {
-        console.log("error is: " + error);
-        retJSON = {
-          payload: {
-            google: {
-              expectUserResponse: true,
-              richResponse: {
-                items: [
-                  {
-                    simpleResponse: {
-                      textToSpeech: "Sorry. Something went wrong!"
-                    }
+      return retJSON;
+    })
+    .catch(function(error) {
+      console.log("error is: " + error);
+      retJSON = {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech: "Sorry. Something went wrong!"
                   }
-                ]
-              }
+                }
+              ]
             }
           }
-        };
-        reject(retJSON);
-      });
-  });
+        }
+      };
+      return retJSON;
+    });
 }
 
 // restService.post("/audio", function(req, res) {
