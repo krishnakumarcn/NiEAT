@@ -64,37 +64,37 @@ restService.post("/orderMeal", function(req, res) {
       if (req.body.queryResult.parameters.food_item)
         fooditem = req.body.queryResult.parameters.food_item;
 
-     if (req.body.queryResult.parameters["number-integer"])
-       quantity = req.body.queryResult.parameters["number-integer"];
+      if (req.body.queryResult.parameters["number-integer"])
+        quantity = req.body.queryResult.parameters["number-integer"];
 
       datetime = new Date().toString();
 
-      // returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
+      returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
 
-      returnJSON = {
-        payload: {
-          google: {
-            expectUserResponse: true,
-            richResponse: {
-              items: [
-                {
-                  simpleResponse: {
-                    textToSpeech:
-                      "Rest: " +
-                      restaurant +
-                      " Food: " +
-                      fooditem +
-                      "Qty: " +
-                      quantity +
-                      "DateTime:" +
-                      datetime
-                  }
-                }
-              ]
-            }
-          }
-        }
-      };
+      // returnJSON = {
+      //   payload: {
+      //     google: {
+      //       expectUserResponse: true,
+      //       richResponse: {
+      //         items: [
+      //           {
+      //             simpleResponse: {
+      //               textToSpeech:
+      //                 "Rest: " +
+      //                 restaurant +
+      //                 " Food: " +
+      //                 fooditem +
+      //                 "Qty: " +
+      //                 quantity +
+      //                 "DateTime:" +
+      //                 datetime
+      //             }
+      //           }
+      //         ]
+      //       }
+      //     }
+      //   }
+      // };
 
       break;
 
@@ -261,7 +261,7 @@ function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
               items: [
                 {
                   simpleResponse: {
-                    textToSpeech: "Some eroor happend"
+                    textToSpeech: "Some eroor occured"
                   }
                 }
               ]
