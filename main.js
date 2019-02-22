@@ -45,25 +45,39 @@ restService.post("/orderMeal", function(req, res) {
   //   });
 
   //
+
+  var cardResponse = {
+    platform: "ACTIONS_ON_GOOGLE",
+    card: {
+      title: "card title",
+      subtitle: "card subtitle",
+      imageUri: "https://example.com/image.jpg",
+      buttons: [
+        {
+          text: "Button Text",
+          postback: "https://example.com"
+        }
+      ]
+    }
+  };
+
   var helperResponse = {
-    "payload": {
-      "google": {
-        "expectUserResponse": true,
-        "richResponse": {
-          "items": [
+    payload: {
+      google: {
+        expectUserResponse: true,
+        richResponse: {
+          items: [
             {
-              "simpleResponse": {
-                "textToSpeech": "this is a simple response"
+              simpleResponse: {
+                textToSpeech: "this is a simple response"
               }
             }
           ]
         }
       }
     }
-  }
-  ;
-
-  return res.json(helperResponse);
+  };
+  return res.json(cardResponse);
 
   ///////////////////////////////////////////////////////////////
   var db = firebase.firestore();
