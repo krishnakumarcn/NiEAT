@@ -25,7 +25,7 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-restService.get("/orderMeal", function(req, res) {
+restService.post("/orderMeal", function(req, res) {
 
   var returnJSON = {
     payload: {
@@ -64,6 +64,7 @@ restService.get("/orderMeal", function(req, res) {
       // datetime = new Date().toString();
 
       // returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
+
 
       // returnJSON = {
       //   payload: {
