@@ -109,21 +109,28 @@ restService.post("/orderMeal", function(req, res) {
       userid: "ndh00300"
   }).then(function(resp){
     console.log("resp is" + resp);
-    agent.add('success');
-    agent.add(`Nieat, This is Welcome to my agent!`);
+    return res.json({
+      //     speech: state + " is the speech",
+      speech: " This is the speech",
+      displayText: "This is the state",
+      source: "webhook-echo-sample"
+    });
+   // agent.add('success');
+   // agent.add(`Nieat, This is Welcome to my agent!`);
   }).catch(function(error){
     console.log("error is: " + error );
-    agent.add('caught error');
-    agent.add(`Nieat, Poda pattee... eroor`);
+    return res.json({
+      //     speech: state + " is the speech",
+      speech: " This is the speech",
+      displayText: "This is the state",
+      source: "webhook-echo-sample"
+    });
+   // agent.add('caught error');
+   // agent.add(`Nieat, Poda pattee... eroor`);
   });
   
 
-  return res.json({
-    //     speech: state + " is the speech",
-    speech: " This is the speech",
-    displayText: "This is the state",
-    source: "webhook-echo-sample"
-  });
+  
 });
 
 restService.post("/audio", function(req, res) {
