@@ -27,27 +27,47 @@ restService.use(bodyParser.json());
 
 restService.post("/orderMeal", function(req, res) {
   var returnJSON = "";
-  switch (req.body.queryResult.intent.displayName) {
+  var intentName = "";
+  if (req.body.queryResult.intent.displayName != null) {
+    intentName = req.body.queryResult.intent.displayName;
+  }
+
+  switch (intentName) {
     case "nieat.order.food":
-      returnJSON = {
-        payload: {
-          google: {
-            expectUserResponse: true,
-            richResponse: {
-              items: [
-                {
-                  simpleResponse: {
-                    textToSpeech:
-                      "Congrats! " +
-                      req.body.queryResult.parameters.food_item +
-                      " is on the way"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      };
+      var fooditem = "";
+      var restaurant = "";
+      var datetime = "";
+      var quantity = 0;
+      var status = "pending";
+      var userid = "uid_dummy";
+
+      //parse data
+      restaurant = req.body.queryResult.parameters.restaurents;
+      fooditem = req.body.queryResult.parameters.food_item;
+      quantity = req.body.queryResult.parameters.number - integer;
+      datetime = new Date().toString();
+
+      returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
+
+      // returnJSON = {
+      //   payload: {
+      //     google: {
+      //       expectUserResponse: true,
+      //       richResponse: {
+      //         items: [
+      //           {
+      //             simpleResponse: {
+      //               textToSpeech:
+      //                 "Congrats! " +
+      //                 req.body.queryResult.parameters.food_item +
+      //                 " is on the way"
+      //             }
+      //           }
+      //         ]
+      //       }
+      //     }
+      //   }
+      // };
       break;
 
     default:
@@ -165,6 +185,64 @@ restService.post("/orderMeal", function(req, res) {
     source: "webhook-echo-sample"
   });
 });
+
+function writeToDB(datetime, restaurant, fooditem, quantity, status, userid) {
+  var db = firebase.firestore();
+
+  db.collection("orders")
+    .doc(datetime)
+    .set({
+      datetime: datetime,
+      fooditem: fooditem,
+      quantity: quantity,
+      restaurant: restaurant,
+      status: status,
+      userid: userid
+    })
+    .then(function(resp) {
+      console.log("resp is" + resp);
+      return {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech:
+                      "Congrats! " +
+                      req.body.queryResult.parameters.food_item +
+                      " is on the way"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      };
+      // agent.add('success');
+      // agent.add(`Nieat, This is Welcome to my agent!`);
+    })
+    .catch(function(error) {
+      console.log("error is: " + error);
+      return {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech: "Some eroor happend"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      };
+    });
+}
 
 restService.post("/audio", function(req, res) {
   var speech = "";
