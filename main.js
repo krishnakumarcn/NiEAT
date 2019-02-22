@@ -58,14 +58,15 @@ restService.post("/orderMeal", function(req, res) {
 
       //parse data
 
-      if (!req.body.queryResult.parameters.restaurents) {
+      if (req.body.queryResult.parameters.restaurents) {
         restaurant = req.body.queryResult.parameters.restaurents;
       }
-      if (!req.body.queryResult.parameters.food_item)
+      if (req.body.queryResult.parameters.food_item)
         fooditem = req.body.queryResult.parameters.food_item;
 
-      // if(!)
-      //quantity = req.body.queryResult.parameters.number - integer;
+      if (req.body.queryResult.parameters.number-integer)
+        quantity = req.body.queryResult.parameters.number-integer;
+        
       datetime = new Date().toString();
 
       // returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
