@@ -78,13 +78,14 @@ restService.post("/orderMeal", async function(req, res) {
       //   userid
       // );
 
-      returnJSON = await writeToDB(
+      await writeToDB(
         datetime,
         restaurant,
         fooditem,
         quantity,
         status,
-        userid
+        userid,
+        res
       );
 
       // returnJSON = {
@@ -134,9 +135,7 @@ restService.post("/orderMeal", async function(req, res) {
       break;
   }
 
-  
-
-  return res.json(returnJSON);
+  //return res.json(returnJSON);
 });
 
 async function writeToDB(
@@ -145,7 +144,8 @@ async function writeToDB(
   fooditem,
   quantity,
   status,
-  userid
+  userid,
+  res
 ) {
   var db = firebase.firestore();
 
@@ -162,7 +162,7 @@ async function writeToDB(
     })
     .then(function(resp) {
       console.log("resp is" + resp);
-      return {
+      let x = {
         payload: {
           google: {
             expectUserResponse: true,
@@ -178,10 +178,11 @@ async function writeToDB(
           }
         }
       };
+      res.json(x);
     })
     .catch(function(error) {
       console.log("error is: " + error);
-      return {
+      let x = {
         payload: {
           google: {
             expectUserResponse: true,
@@ -197,7 +198,7 @@ async function writeToDB(
           }
         }
       };
-      
+      res.json(x);
     });
 }
 
