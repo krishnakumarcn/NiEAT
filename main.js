@@ -25,8 +25,24 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-restService.post("/orderMeal", function(req, res) {
-  var returnJSON = "";
+restService.get("/orderMeal", function(req, res) {
+
+  var returnJSON = {
+    payload: {
+      google: {
+        expectUserResponse: true,
+        richResponse: {
+          items: [
+            {
+              simpleResponse: {
+                textToSpeech: "Initial JSON"
+              }
+            }
+          ]
+        }
+      }
+    }
+  };
   var intentName = "";
   if (req.body.queryResult.intent.displayName != null) {
     intentName = req.body.queryResult.intent.displayName;
@@ -34,20 +50,20 @@ restService.post("/orderMeal", function(req, res) {
 
   switch (intentName) {
     case "nieat.order.food":
-      var fooditem = "";
-      var restaurant = "";
-      var datetime = "";
-      var quantity = 0;
-      var status = "pending";
-      var userid = "uid_dummy";
+      // var fooditem = "";
+      // var restaurant = "";
+      // var datetime = "";
+      // var quantity = 0;
+      // var status = "pending";
+      // var userid = "uid_dummy";
 
-      //parse data
-      restaurant = req.body.queryResult.parameters.restaurents;
-      fooditem = req.body.queryResult.parameters.food_item;
-      quantity = req.body.queryResult.parameters.number - integer;
-      datetime = new Date().toString();
+      // //parse data
+      // restaurant = req.body.queryResult.parameters.restaurents;
+      // fooditem = req.body.queryResult.parameters.food_item;
+      // quantity = req.body.queryResult.parameters.number - integer;
+      // datetime = new Date().toString();
 
-      returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
+      // returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
 
       // returnJSON = {
       //   payload: {
