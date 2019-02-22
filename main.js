@@ -26,7 +26,6 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/orderMeal", function(req, res) {
-
   var returnJSON = {
     payload: {
       google: {
@@ -50,41 +49,50 @@ restService.post("/orderMeal", function(req, res) {
 
   switch (intentName) {
     case "nieat.order.food":
-      // var fooditem = "";
-      // var restaurant = "";
-      // var datetime = "";
-      // var quantity = 0;
-      // var status = "pending";
-      // var userid = "uid_dummy";
+      var fooditem = "";
+      var restaurant = "";
+      var datetime = "";
+      var quantity = 0;
+      var status = "pending";
+      var userid = "uid_dummy";
 
-      // //parse data
-      // restaurant = req.body.queryResult.parameters.restaurents;
-      // fooditem = req.body.queryResult.parameters.food_item;
-      // quantity = req.body.queryResult.parameters.number - integer;
-      // datetime = new Date().toString();
+      //parse data
+
+      if (!req.body.queryResult.parameters.restaurents) {
+        restaurant = req.body.queryResult.parameters.restaurents;
+      }
+      if (!req.body.queryResult.parameters.food_item)
+        fooditem = req.body.queryResult.parameters.food_item;
+
+      // if(!)
+      //quantity = req.body.queryResult.parameters.number - integer;
+      datetime = new Date().toString();
 
       // returnJSON = writeToDB(datetime, restaurant, fooditem, quantity, status, userid);
 
+      returnJSON = {
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech:
+                      "Rest: " +
+                      restaurant +
+                      " Food: " +
+                      fooditem +
+                      "DateTime:" +
+                      datetime
+                  }
+                }
+              ]
+            }
+          }
+        }
+      };
 
-      // returnJSON = {
-      //   payload: {
-      //     google: {
-      //       expectUserResponse: true,
-      //       richResponse: {
-      //         items: [
-      //           {
-      //             simpleResponse: {
-      //               textToSpeech:
-      //                 "Congrats! " +
-      //                 req.body.queryResult.parameters.food_item +
-      //                 " is on the way"
-      //             }
-      //           }
-      //         ]
-      //       }
-      //     }
-      //   }
-      // };
       break;
 
     default:
